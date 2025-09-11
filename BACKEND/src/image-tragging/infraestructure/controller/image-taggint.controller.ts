@@ -1,7 +1,8 @@
-import { Controller, Post, UploadedFile, UseInterceptors } from "@nestjs/common";
+import { BadRequestException, Controller, FileTypeValidator, MaxFileSizeValidator, Post, UploadedFile, UseInterceptors } from "@nestjs/common";
 import { ImageTagService } from "../../application/service/image-tag.service";
 import { FileInterceptor } from "@nestjs/platform-express";
 import { Multer } from "multer";
+import { ParseFilePipe } from "@nestjs/common";
 
 @Controller({
     path: 'analyze',
@@ -13,16 +14,19 @@ export class ImageTaggingController {
     ) {}
 
     @Post()
-    @UseInterceptors(FileInterceptor("image", {
-        limits: { fileSize: 10 * 1024 * 1024 }, // 10 MB
-        fileFilter: (req, file, callback) => {
-          if (!file.mimetype.match(/^image\/(jpeg|png|jpg)$/)) {
-            return callback(new Error("Solo se permiten imágenes JPEG o PNG"), false);
-          }
-          callback(null, true);
-        },
-    }))
-    async analyzeImage(@UploadedFile() file: Multer.File) {
+    @UseInterceptors(FileInterceptor('image'))
+    async analyzeImage(
+        @UploadedFile(
+        new ParseFilePipe({
+            validators: [
+            new MaxFileSizeValidator({ maxSize: 10 * 1024 * 1024 }),
+            new FileTypeValidator({ fileType: /(jpeg|jpg|png)$/ }),
+            ],
+            exceptionFactory: (errors) => new BadRequestException(errors),
+        }),
+        )
+        file: Multer.File,
+    ) {
         return this.imageTaggingService.analizeImage(file.buffer);
     }
 }
