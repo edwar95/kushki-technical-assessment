@@ -1,34 +1,31 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import testImage from './assets/test.jpg'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
-    <>
+    <div className="min-h-screen w-full bg-black flex flex-col items-center justify-center gap-6">
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <h1 className="text-3xl font-bold text-white">
+          Analizador de imágenes
+        </h1>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
+
+      <div>
+        <p className="text-white">
+          imagen: buscador
         </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+
+      <div className="w-1/2 aspect-square bg-gray-800 flex items-center justify-center rounded-lg overflow-hidden">
+        <img src={testImage} alt="test" />
+        <p className="text-white">carga de imagen</p>
+      </div>
+
+      <div>
+        <p className="text-white">aqui van los tags
+        </p>
+      </div>
+    </div>
   )
 }
 
