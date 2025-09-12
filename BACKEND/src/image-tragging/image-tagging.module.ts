@@ -1,5 +1,5 @@
 import { Module } from "@nestjs/common";
-import { ImageTaggingController } from "./infraestructure/controller/image-taggint.controller";
+import { ImageTaggingController } from "./infraestructure/controller/image-tagging.controller";
 import { ImageTagService } from "./application/service/image-tag.service";
 import { AIrepository } from "./infraestructure/repository/AI.repository";
 import { ConfigService } from "@nestjs/config";
