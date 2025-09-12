@@ -1,0 +1,27 @@
+version: "3.9"
+
+services:
+  frontend:
+    build:
+      context: ./FRONTEND   # apunta al directorio donde está el Dockerfile
+      dockerfile: Dockerfile
+    container_name: frontend-app
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./FRONTEND:/app          # permite hot reload durante desarrollo
+      - /app/node_modules        # evita sobrescribir node_modules del contenedor
+    environment:
+      - NODE_ENV=development
+  backend:
+    build:
+      context: ./BACKEND
+      dockerfile: Dockerfile
+    container_name: backend-app
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
