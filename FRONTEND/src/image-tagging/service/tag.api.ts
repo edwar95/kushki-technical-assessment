@@ -10,8 +10,11 @@ export async function getTags(file: File): Promise<{ label: string; confidence: 
   });
 
   if (!response.ok) {
-    throw new Error("Failed to fetch tags");
+    const errorBody = await response.json();
+    console.log("Error body:", errorBody);
+    throw new Error(errorBody.message || "Error al analizar la imagen");
   }
 
-  return response.json();
+  const responseData = await response.json();
+  return responseData.tags;
 }
