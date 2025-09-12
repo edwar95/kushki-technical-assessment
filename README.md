@@ -38,3 +38,8 @@ docker-compose up -d --build
 
 # 4. Detener y eliminar los contenedores
 docker-compose down
+```
+
+Vistar el proyecto en la url: 
+
+http://localhost:5173/
