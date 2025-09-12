@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { IImageTag } from "../interface/image-tag.interface";
-import { AIrepository } from "src/image-tragging/infraestructure/repository/AI.repository";
+import { AIrepository } from "../../infraestructure/repository/AI.repository";
 
 @Injectable()
 export class ImageTagService implements IImageTag {
